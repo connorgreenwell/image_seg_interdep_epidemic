@@ -1,0 +1,47 @@
+\documentclass[twocolumn]{article}
+
+\title{Modeling Image Segmentation as Epidemic Spread in an Interdependent Network}
+\author{Emory Hufbauer, Connor Greenwell}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In this document we propose formulating the problem of image segmentation as simulating the propagation of
+information/ownership through an interdependent network where the first layer is a lattice representation of an input image
+and the second layer is a (planar) overlay graph where each node has weighted edges to pixels in the lattice. We will design
+and evaluate a number of propagation models, primarily based on pixel/region similarity metrics. Finally we will compare our
+method against classical and current state-of-the-art methods for image segmentation on a variety of segmentation benchmark
+datasets. 
+\end{abstract}
+
+\section{Objective}
+
+We will first create an interdependent network model of an image. The weights of edges between adjacent pixels in the lattice
+will represent their degree of similarity to each other. The weights of edges between nodes in the overlay graph will
+represent their overlap and estimated potential to belong to the same object. The weights of edges between the overlay and
+lattice will represent ownership of pixels by superpixels.
+
+We will then perform a simultaneous, competitive propagation of multiple phenomena through this network using a variety of
+models, with the ultimate goal of developing a propagation model with property that, after propagation has completed, the
+regions of the lattice affected by each phenomena correspond well to the segments of the image.
+
+\section{Inputs}
+
+An image and, potentially, a super-pixelization of that image created using an existing algorithm to be used as an overlay
+graph.
+
+\section{Output}
+
+A reasonable segmentation of the image based on a union of superpixels in the overlay graph.
+
+\section{Evaluation}
+
+The goal of this project is mostly to explore the space and point to future research possibilities. Although the results will
+be compared with those of existing algorithms, they are not expected to be competitive with the state of the art. To that end
+we will evaluate our performance on a variety of classic image segmentation benchmark datasets, including PASCAL VOC and
+MS-COCO, as well as compare our results against existing state-of-the-art segmentation methods. 
+
+\end{document}
