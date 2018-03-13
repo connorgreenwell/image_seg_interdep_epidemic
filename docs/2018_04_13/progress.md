@@ -60,4 +60,10 @@ Mechanisms for performing hyperparameter optimization have been developed and te
 necessary because our final method will likely have a number of tunable hyperparameters and it will be useful to automatically
 find the optimal settings for our task.
 
+![Results of naive method with semi-optimal parameters. Naive clustering based only on pixel similarity is better than
+random but still a poor strategy.
+Row 1: input image.
+Row 2: ground truth segmentation.
+Row 3: estimated segmentation.](searched.png)
+
 # References
