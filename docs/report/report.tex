@@ -1,5 +1,12 @@
 \documentclass[twocolumn]{article}
 
+\usepackage{color}
+
+% Comment out second line to disable.
+% Thanks: https://gist.github.com/orbekk/1298622
+\newcommand{\todo}[1]{}
+\renewcommand{\todo}[1]{{\color{red} TODO: {#1}}}
+
 \title{Modeling Image Segmentation as Epidemic Spread in an Interdependent Network}
 \author{Emory Hufbauer, Connor Greenwell}
 \date{}
@@ -37,6 +44,11 @@ regions of the lattice affected by each phenomena correspond well to the segment
 An image and, potentially, a super-pixelization of that image created using an existing algorithm to be used as an overlay
 graph.
 
+\todo{
+A dataset has been found, and a system has been put into place for easily loading up pairs of images and annotations from the
+PASCAL VOC dataset \cite{Everingham10}. 
+}
+
 \section{Output}
 
 A reasonable segmentation of the image based on a union of superpixels in the overlay graph.
@@ -47,6 +59,26 @@ The goal of this project is mostly to explore the space and point to future rese
 be compared with those of existing algorithms, they are not expected to be competitive with the state of the art. To that end
 we will evaluate our performance on a variety of classic image segmentation benchmark datasets, including PASCAL VOC and
 MS-COCO, as well as compare our results against existing state-of-the-art segmentation methods. 
+
+\todo{
+A number of evaluation metrics have been explored for performance on the task of image segmentation. We have chosen the
+Adjusted Rand Score from \cite{unnikrishnan2005measure}  Some other metrics to consider are Mutual Information, FMI, and
+Homogeneity scores. These may be included in the final paper if they tell an interesting story but our primary focus will be
+on evluating against Hebert's ARS score.
+}
+
+\section{Results}
+
+\todo{
+A naive baseline method has been developed for us to compare our actual method against. It is based on using DBSCAN
+\cite{ester1996density} to cluster and merge superpixels produced by SLIC \cite{achanta2010slic}.
+}
+
+\todo{
+Mechanisms for performing hyperparameter optimization have been developed and tested on the naive baseline. This will be
+necessary because our final method will likely have a number of tunable hyperparameters and it will be useful to automatically
+find the optimal settings for our task.
+}
 
 \bibliographystyle{plain}
 \bibliography{refs} 
