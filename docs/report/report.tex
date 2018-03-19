@@ -8,6 +8,13 @@
 \newcommand{\todo}[1]{}
 \renewcommand{\todo}[1]{{\color{red} TODO: {#1}}}
 
+\newcommand{\secref}[1]{Section~\ref{sec:#1}}
+\newcommand{\seclab}[1]{\label{sec:#1}}
+\newcommand{\figref}[1]{Figure~\ref{fig:#1}}
+\newcommand{\figlab}[1]{\label{fig:#1}}
+\newcommand{\tblref}[1]{Table~\ref{tbl:#1}}
+\newcommand{\tbllab}[1]{\label{tbl:#1}}
+
 \title{Modeling Image Segmentation as Epidemic Spread in an Interdependent Network}
 \author{
   Emory Hufbauer, Connor Greenwell \\
@@ -29,11 +36,28 @@ method against classical and current state-of-the-art methods for image segmenta
 datasets. 
 \end{abstract}
 
-\section{Related Work}
+\section{Introduction}
+
+In this document we propose formulating the problem of image segmentation as simulating the propagation of
+information/ownership through an interdependent network where the first layer is a lattice representation of an input image
+and the second layer is a (planar) overlay graph where each node has weighted edges to pixels in the lattice. We will design
+and evaluate a number of propagation models, primarily based on pixel/region similarity metrics. Finally we will compare our
+method against classical and current state-of-the-art methods for image segmentation on a variety of segmentation benchmark
+datasets. 
+
+The following paper is layed out as follows: In \secref{related} we survey the current state of the art in image segmentation,
+as well as methods related to ours. In \secref{approach} we describe our method in detail. In \secref{eval} we describe the
+metrics by which we judge our methods and those we compare against. In \secref{data} we describe the benchmark datasets
+against which we compare. Finally, in \secref{results} we describe our resulting performance and evaluation.
+
+\section{Related Work}\seclab{related}
 
 \cite{pei2014saliency} use a Markov-Random-Field on precomputed super pixels to perform image segmentation.
 
-\section{Objective}
+\cite{newell2017associative,li2017fully,ren2017end} present a variety of neural network based approached to instance
+segmentation on natural images.
+
+\section{Approach}\seclab{approach}
 
 We will first create an interdependent network model of an image. The weights of edges between adjacent pixels in the lattice
 will represent their degree of similarity to each other. The weights of edges between nodes in the overlay graph will
@@ -44,7 +68,7 @@ We will then perform a simultaneous, competitive propagation of multiple phenome
 models, with the ultimate goal of developing a propagation model with property that, after propagation has completed, the
 regions of the lattice affected by each phenomena correspond well to the segments of the image.
 
-\section{Inputs}
+\subsection{Inputs}
 
 An image and, potentially, a super-pixelization of that image created using an existing algorithm to be used as an overlay
 graph.
@@ -54,16 +78,26 @@ A dataset has been found, and a system has been put into place for easily loadin
 PASCAL VOC dataset \cite{Everingham10}. 
 }
 
-\section{Output}
+\subsection{Output}
 
 A reasonable segmentation of the image based on a union of superpixels in the overlay graph.
 
-\section{Evaluation}
+\section{Evaluation}\seclab{eval}
 
 The goal of this project is mostly to explore the space and point to future research possibilities. Although the results will
 be compared with those of existing algorithms, they are not expected to be competitive with the state of the art. To that end
 we will evaluate our performance on a variety of classic image segmentation benchmark datasets, including PASCAL VOC and
 MS-COCO, as well as compare our results against existing state-of-the-art segmentation methods. 
+
+\subsection{Datasets}\seclab{data}
+
+\paragraph{PASCAL VOC} \cite{Everingham10}.
+
+\paragraph{Cityscapes Dataset} \cite{cordts2016cityscapes}.
+
+\paragraph{KITTI} \cite{geiger2012we}
+
+\paragraph{MS COCO} \cite{lin2014microsoft}.
 
 \todo{
 A number of evaluation metrics have been explored for performance on the task of image segmentation. We have chosen the
@@ -72,7 +106,7 @@ Homogeneity scores. These may be included in the final paper if they tell an int
 on evluating against Hebert's ARS score.
 }
 
-\section{Results}
+\section{Results}\seclab{results}
 
 \todo{
 A naive baseline method has been developed for us to compare our actual method against. It is based on using DBSCAN
