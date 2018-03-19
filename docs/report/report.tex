@@ -17,7 +17,7 @@
 
 \title{Modeling Image Segmentation as Epidemic Spread in an Interdependent Network}
 \author{
-  Emory Hufbauer, Connor Greenwell \\
+  Connor Greenwell, Emory Hufbauer\\
   Computer Science Dept. \\
   University of Kentucky
 }
@@ -76,6 +76,10 @@ segmentation on natural images.
 
 \section{Approach}\seclab{approach}
 
+First we encode an input image as a lattice graph of pixels. A random, planar overlay graph is created and edges linked
+between each node and every pixel in the image. The overlay graph has a low number of nodes, representing a prior on the
+maximum number of objects that can possibly exist in a photograph. 
+
 We will first create an interdependent network model of an image. The weights of edges between adjacent pixels in the lattice
 will represent their degree of similarity to each other. The weights of edges between nodes in the overlay graph will
 represent their overlap and estimated potential to belong to the same object. The weights of edges between the overlay and
@@ -91,21 +95,6 @@ regions of the lattice affected by each phenomena correspond well to the segment
 A naive baseline method has been developed for us to compare our actual method against. It is based on using DBSCAN
 \cite{ester1996density} to cluster and merge superpixels produced by SLIC \cite{achanta2010slic}.
 }
-
-\todo{DELETE INPUTS AND OUTPUTS SUBSECTIONS AND ROLL THEM INTO APPROACH DESCRIPTION}
-\subsection{Inputs}
-
-An image and, potentially, a super-pixelization of that image created using an existing algorithm to be used as an overlay
-graph.
-
-\todo{
-A dataset has been found, and a system has been put into place for easily loading up pairs of images and annotations from the
-PASCAL VOC dataset \cite{Everingham10}. 
-}
-
-\subsection{Output}
-
-A reasonable segmentation of the image based on a union of superpixels in the overlay graph.
 
 \section{Evaluation}\seclab{eval}
 
