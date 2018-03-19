@@ -38,12 +38,27 @@ datasets.
 
 \section{Introduction}
 
-In this document we propose formulating the problem of image segmentation as simulating the propagation of
+\todo{
+Engaging opening paragraph. 
+
+``Instance segmentation is an important and popular topic in computer vision \cite{newell2017associative, li2017fully,
+ren2017end}. Current state of the art uses recurrent neural networks to segment an image into its consituent object parts.
+However occlusion is not handled well (is this actually true?). We propose a method based on the endemic spread of information
+through an interdependent network.'' 
+}
+
+\todo{some light background on image segmentation.}
+
+\todo{some light background on interdependent networks. Why is this problem formulation better?}
+
+\todo{
+Summarize the paper into a medium length paragraph (currently just copy/pasted from the abstract.): In this document we propose formulating the problem of image segmentation as simulating the propagation of
 information/ownership through an interdependent network where the first layer is a lattice representation of an input image
 and the second layer is a (planar) overlay graph where each node has weighted edges to pixels in the lattice. We will design
 and evaluate a number of propagation models, primarily based on pixel/region similarity metrics. Finally we will compare our
 method against classical and current state-of-the-art methods for image segmentation on a variety of segmentation benchmark
 datasets. 
+}
 
 The following paper is layed out as follows: In \secref{related} we survey the current state of the art in image segmentation,
 as well as methods related to ours. In \secref{approach} we describe our method in detail. In \secref{eval} we describe the
@@ -52,8 +67,10 @@ against which we compare. Finally, in \secref{results} we describe our resulting
 
 \section{Related Work}\seclab{related}
 
-\cite{pei2014saliency} use a Markov-Random-Field on precomputed super pixels to perform image segmentation.
+\todo{endemic spread in interdpenedent networks}
 
+\todo{image segmentation: classic, modern, and weird methods}
+\cite{pei2014saliency} use a Markov-Random-Field on precomputed super pixels to perform image segmentation.
 \cite{newell2017associative,li2017fully,ren2017end} present a variety of neural network based approached to instance
 segmentation on natural images.
 
@@ -68,6 +85,14 @@ We will then perform a simultaneous, competitive propagation of multiple phenome
 models, with the ultimate goal of developing a propagation model with property that, after propagation has completed, the
 regions of the lattice affected by each phenomena correspond well to the segments of the image.
 
+\todo{more complete description of planned experiments}
+
+\todo{
+A naive baseline method has been developed for us to compare our actual method against. It is based on using DBSCAN
+\cite{ester1996density} to cluster and merge superpixels produced by SLIC \cite{achanta2010slic}.
+}
+
+\todo{DELETE INPUTS AND OUTPUTS SUBSECTIONS AND ROLL THEM INTO APPROACH DESCRIPTION}
 \subsection{Inputs}
 
 An image and, potentially, a super-pixelization of that image created using an existing algorithm to be used as an overlay
@@ -89,15 +114,7 @@ be compared with those of existing algorithms, they are not expected to be compe
 we will evaluate our performance on a variety of classic image segmentation benchmark datasets, including PASCAL VOC and
 MS-COCO, as well as compare our results against existing state-of-the-art segmentation methods. 
 
-\subsection{Datasets}\seclab{data}
-
-\paragraph{PASCAL VOC} \cite{Everingham10}.
-
-\paragraph{Cityscapes Dataset} \cite{cordts2016cityscapes}.
-
-\paragraph{KITTI} \cite{geiger2012we}
-
-\paragraph{MS COCO} \cite{lin2014microsoft}.
+\todo{describe metrics here, probably need to restate the formula from Hebert's paper}
 
 \todo{
 A number of evaluation metrics have been explored for performance on the task of image segmentation. We have chosen the
@@ -106,18 +123,33 @@ Homogeneity scores. These may be included in the final paper if they tell an int
 on evluating against Hebert's ARS score.
 }
 
+\subsection{Datasets}\seclab{data}
+
+\todo{we dont need all 4, trim down a bit probably}
+
+\paragraph{PASCAL VOC} \todo{describe} \cite{Everingham10}.
+
+\paragraph{Cityscapes Dataset} \todo{describe} \cite{cordts2016cityscapes}.
+
+\paragraph{KITTI} \todo{describe} \cite{geiger2012we}
+
+\paragraph{MS COCO} \todo{describe} \cite{lin2014microsoft}.
+
 \section{Results}\seclab{results}
 
-\todo{
-A naive baseline method has been developed for us to compare our actual method against. It is based on using DBSCAN
-\cite{ester1996density} to cluster and merge superpixels produced by SLIC \cite{achanta2010slic}.
-}
+\todo{This section should be a boat load of tables and plots. Hopefully we look good in some of them}
 
 \todo{
 Mechanisms for performing hyperparameter optimization have been developed and tested on the naive baseline. This will be
 necessary because our final method will likely have a number of tunable hyperparameters and it will be useful to automatically
 find the optimal settings for our task.
 }
+
+\section{Conclusion}
+
+\todo{restate what we did in more detail than we do in the intro}
+
+\todo{future work}
 
 \bibliographystyle{plain}
 \bibliography{refs} 
