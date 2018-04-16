@@ -4,6 +4,7 @@
 \usepackage[margin=1in,bottom=1.5in]{geometry}
 
 \usepackage{graphicx}
+\usepackage{subcaption}
 
 % Comment out second line to disable.
 % Thanks: https://gist.github.com/orbekk/1298622
@@ -164,6 +165,41 @@ each pair of pixels on the sphere as a 4D structure like above.
 The result of each approach is a four-dimensional array or "image of
 images", which we visualize in \figref{alpha_beta}.
 
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/ab_graphs.png}
+
+  \caption{
+    The original overlay graphs on a sample image. In each, lighter colors represent higher scores; best viewed in color.
+    (left) alpha scores, based on color intensity. (right) beta scores, based on hue difference.
+  }
+  \figlab{ab_graph}
+
+\end{figure}
+
+\begin{figure}
+  \centering
+
+  \begin{subfigure}{\linewidth}
+    \includegraphics[width=\linewidth]{figs/single_source.png}
+    \caption{Probability distribution over superpixels.}
+  \end{subfigure}
+  \begin{subfigure}{\linewidth}
+    \includegraphics[width=\linewidth]{figs/many_sources.png}
+    \caption{Binary masks for various source regions.}
+  \end{subfigure}
+  \begin{subfigure}{\linewidth}
+    \includegraphics[width=\linewidth]{figs/aggregate.png}
+    \caption{Aggregate of many binary masks. \todo{This is REALLY bad. I must be doing something wrong\ldots}}
+  \end{subfigure}
+
+  \caption{
+    Overview of our method: First, a \todo{blarg}
+  }
+  \figlab{process}
+
+\end{figure}
+
 \section{Evaluation}\seclab{eval}
 
 The goal of this project is mostly to explore the space and point to future
@@ -195,6 +231,38 @@ evluating against Hebert's ARS score.
 \paragraph{MS COCO} \todo{describe} \cite{lin2014microsoft}.
 
 \section{Results}\seclab{results}
+
+\begin{figure}
+  \centering
+
+  \includegraphics[width=\linewidth]{figs/bars.png}
+
+  \caption{Comparison of Adjusted Rand Score on 100 images from the training set. Having more area to the right of the graph
+indicates a higher proportion of high quality seqmentations. In this case, this indicates that our method is worse than our
+defined baseline.
+  }
+  \figlab{bars}
+
+\end{figure}
+
+\begin{figure}
+  \centering
+
+  \begin{subfigure}{\linewidth}
+    \includegraphics[width=\linewidth]{figs/only_alpha.png}
+    \caption{Sample segmentation using only the alpha scores.}
+  \end{subfigure}
+  \begin{subfigure}{\linewidth}
+    \includegraphics[width=\linewidth]{figs/only_beta.png}
+    \caption{Sample segmentation using only the beta scores.}
+  \end{subfigure}
+
+  \caption{
+    \todo{foobar}
+  }
+  \figlab{ab_only}
+
+\end{figure}
 
 \todo{This section should be a boat load of tables and plots. Hopefully we look good in some of them}
 
