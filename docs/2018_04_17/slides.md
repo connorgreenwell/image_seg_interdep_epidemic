@@ -35,7 +35,7 @@ Given an image, label each pixel as belonging to a separete physical object.
 
 # Method Overview (continued)
 
-- simulate traversal of graph ala markov
+- simulate traversal of graph (Markov)
 - threshold traversal probabilities
 - combine threshold-ed segmentation masks
 
@@ -49,9 +49,16 @@ Given an image, label each pixel as belonging to a separete physical object.
 ![](res/alpha.png){width=33%}
 ![](res/beta.png){width=33%}
 
+Left: original image. Middle: alpha similarity to starred pixel. Right: beta
+similarity to starred pixel.
+
 ---
 
-# IDN
+# Method Walkthrough
+
+Divide image into superpixels with off the shelf method (such as SLIC).
+
+![](res/superpixels.png){width=60%}
 
 ---
 
@@ -70,7 +77,8 @@ alpha only. Right: beta only.
 
 ---
 
-simulate traversal of graph ala markov; threshold traversal probabilities
+Simulate traversal of graph by taking the n-th power of the adjacency matrix;
+threshold traversal probabilities to create binary segmentation masks.
 
 ![](res/single_source.png)
 
