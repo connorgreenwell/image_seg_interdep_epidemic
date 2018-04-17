@@ -30,6 +30,11 @@ Given an image, label each pixel as belonging to a separete physical object.
 - Off the shelf super-pixel segmentation
 - Compute similarity metrics between neigboring SPs
 - overlay networks of neighbor similarity graphs, uniform value links
+
+---
+
+# Method Overview (continued)
+
 - simulate traversal of graph ala markov
 - threshold traversal probabilities
 - combine threshold-ed segmentation masks
@@ -50,34 +55,47 @@ Given an image, label each pixel as belonging to a separete physical object.
 
 ---
 
-![](res/ab_graphs.png)
+Compute similarity metrics between neigboring SPs;
+overlay networks of neighbor similarity graphs, uniform value links.
+
+![Left: alpha. Right: beta.](res/ab_graphs.png)
 
 ---
+
+Simple segmentation by cutting edges under some threshold similarity. Left:
+alpha only. Right: beta only.
 
 ![](res/only_alpha.png){width=50%}
 ![](res/only_beta.png){width=50%}
 
 ---
 
+simulate traversal of graph ala markov; threshold traversal probabilities
+
 ![](res/single_source.png)
 
 ---
+
+Threshold traversals from *all* source superpixels.
 
 ![](res/many_sources.png)
 
 ---
 
+# Example Combined Segmentations
+
+![](res/example_out.png)
+
+---
+
 # Baseline for Comparison
+
+- use off the shelf superpixel method (SLIC-Zero)
+- cluster superpixels based on pixel similarity (k-Means, k=3)
 
 ---
 
 ![](res/searched.png)
-
----
-
-# Example Output
-
-![](res/example_out.png)
 
 ---
 
