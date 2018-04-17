@@ -16,11 +16,23 @@ header-includes:
 
 ---
 
-# Task Overview
+# Visual Object Segmentation 
+
+Given an image, label each pixel as belonging to a separete physical object.
+(Note: distinct from object classification)
+
+![](res/seg_ex.png)
 
 ---
 
 # Method Overview
+
+- Off the shelf super-pixel segmentation
+- Compute similarity metrics between neigboring SPs
+- overlay networks of neighbor similarity graphs, uniform value links
+- simulate traversal of graph ala markov
+- threshold traversal probabilities
+- combine threshold-ed segmentation masks
 
 ---
 
@@ -55,11 +67,10 @@ header-includes:
 
 ---
 
-![](res/aggregate.png)
-
----
-
 # Example Output
+
+![](res/ours_best.png){width=50%}
+![](res/base_best.png){width=50%}
 
 ---
 
@@ -73,11 +84,17 @@ header-includes:
 
 # Scoring
 
+Adjusted Rand Score [^npri]:
+
+[^npri]: https://www.cs.cmu.edu/~hebert/segs.htm
+
+---
+
+![](res/ars_demo.png)
+
 ---
 
 # Results
-
----
 
 ![](res/bars.png)
 
