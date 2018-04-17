@@ -67,13 +67,6 @@ Given an image, label each pixel as belonging to a separete physical object.
 
 ---
 
-# Example Output
-
-![](res/ours_best.png){width=50%}
-![](res/base_best.png){width=50%}
-
----
-
 # Baseline for Comparison
 
 ---
@@ -82,9 +75,15 @@ Given an image, label each pixel as belonging to a separete physical object.
 
 ---
 
+# Example Output
+
+![](res/example_out.png)
+
+---
+
 # Scoring
 
-Adjusted Rand Score [^npri]:
+Normalized Probabilistic Rand (NPR) index[^npri]:
 
 [^npri]: https://www.cs.cmu.edu/~hebert/segs.htm
 
@@ -94,18 +93,34 @@ Adjusted Rand Score [^npri]:
 
 ---
 
-# Results
+# Initial Results
 
-![](res/bars.png)
+Negative values indicate poor segmentation, higher is better.
+
+![](res/bars.png){width=80%}
+
+---
+
+![](res/ours_best.png){width=50%}
+![](res/base_best.png){width=50%}
+
+Left: best segmentations w/ our method.
+Right: best segmentations w/ baseline method.
 
 ---
 
 # TODO
 
-- foo
-- bar
-- baz
+- Full evaluation on PASCAL VOC dataset
+- Find optimal threshold
+- Explore different traversal horizons
+- More!
 
 ---
 
 # Questions?
+
+On GitHub: 
+
+\tiny
+github.com/connorgreenwell/image_seg_interdep_epidemic
