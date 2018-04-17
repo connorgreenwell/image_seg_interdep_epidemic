@@ -29,14 +29,13 @@ Given an image, label each pixel as belonging to a separete physical object.
 
 - Off the shelf super-pixel segmentation
 - Compute similarity metrics between neigboring SPs
-- overlay networks of neighbor similarity graphs, with uniform valued dependency
-  links between corresponding nodes
+- overlay networks of neighbor similarity graphs, uniform value links
 
 ---
 
 # Method Overview (continued)
 
-- simulate traversal of graph
+- simulate traversal of graph (Markov)
 - threshold traversal probabilities
 - combine threshold-ed segmentation masks
 
@@ -44,14 +43,42 @@ Given an image, label each pixel as belonging to a separete physical object.
 
 # Similarity Metrics
 
+- We want two or more distinct metrics for pixel similarity.
+- These similarities will ultimately be used to generate network adjacency matrices
+
 ---
 
-![](res/input.png){width=33%}
-![](res/alpha.png){width=33%}
-![](res/beta.png){width=33%}
+# Similarity Metrics (continued)
 
-Left: original image. Middle: alpha similarity to starred pixel. Right: beta
-similarity to starred pixel.
+![](res/input.png)
+
+- For any pixel in this image, we want metrics that tell us how "similar" each other pixel is to it
+- Pixels are represented as 3-vectors, with red, green, and blue components
+
+---
+
+# Alpha Method (Euclidean Value Difference)
+
+![](res/alpha.png)
+
+- Take the inverse square of the difference in magnitude between every pair of pixels in the image
+- Using the magnitude implicitly rejects color information
+- Taking the inverse square makes the resulting value decrease as the pixels become more different
+- The result is a four-dimensional array or an "image of images"
+
+---
+
+# Beta Method (Cosine Hue Difference)
+
+![](res/beta.png)
+
+- First subtract a vector constant from every pixel to center the color space around zero
+- Then scale each vector by the inverse of its magnitude to reject value information
+ + We've essentially reduced our point-cloud to a hollow sphere
+ + Points on the surface of that sphere represent unique hues
+- Now, take the dot product of every pair of pixels in the image
+- The result is the cosine of the angular distance between the pixels on the hue-sphere
+ + This metric decreases as the hues become more different
 
 ---
 
