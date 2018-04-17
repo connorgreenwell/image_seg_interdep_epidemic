@@ -74,11 +74,11 @@ Given an image, label each pixel as belonging to a separete physical object.
 
 - First subtract a vector constant from every pixel to center the color space around zero
 - Then scale each vector by the inverse of its magnitude to reject value information
- + We've essentially reduced our point-cloud to a hollow sphere
- + Points on the surface of that sphere represent unique hues
+    - We've essentially reduced our point-cloud to a hollow sphere
+    - Points on the surface of that sphere represent unique hues
 - Now, take the dot product of every pair of pixels in the image
 - The result is the cosine of the angular distance between the pixels on the hue-sphere
- + This metric decreases as the hues become more different
+    - This metric decreases as the hues become more different
 
 ---
 
