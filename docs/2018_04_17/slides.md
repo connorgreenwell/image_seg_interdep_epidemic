@@ -29,13 +29,14 @@ Given an image, label each pixel as belonging to a separete physical object.
 
 - Off the shelf super-pixel segmentation
 - Compute similarity metrics between neigboring SPs
-- overlay networks of neighbor similarity graphs, uniform value links
+- overlay networks of neighbor similarity graphs, with uniform valued dependency
+  links between corresponding nodes
 
 ---
 
 # Method Overview (continued)
 
-- simulate traversal of graph (Markov)
+- simulate traversal of graph
 - threshold traversal probabilities
 - combine threshold-ed segmentation masks
 
