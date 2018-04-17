@@ -70,13 +70,12 @@ Given an image, label each pixel as belonging to a separete physical object.
 
 # Beta Method (Cosine Hue Difference)
 
-![](res/beta.png)
+![](res/beta.png){width=33%} ![](res/cloud.png){width=33%} ![](res/sphere.png){width=33%}
 
 - First subtract a vector constant from every pixel to center the color space around zero
 - Then scale each vector by the inverse of its magnitude to reject value information
     - We've essentially reduced our point-cloud to a hollow sphere
     - Points on the surface of that sphere represent unique hues
-![](res/cloud.png){width=25%} ![](res/sphere.png){width=25%}
 - Now, take the dot product of every pair of pixels in the image
 - The result is the cosine of the angular distance between the pixels on the hue-sphere
     - This metric decreases as the hues become more different
