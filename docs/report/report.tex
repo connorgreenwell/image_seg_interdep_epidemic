@@ -201,21 +201,26 @@ against. It is based on using DBSCAN \cite{ester1996density} to cluster and
 merge superpixels produced by SLIC \cite{achanta2010slic}.
 
 \begin{figure}
-
 \centering
-\includegraphics[width=\linewidth]{figs/searched.png}
-\caption{Results from a baseline segmentation approach based on similariity
+\includegraphics[width=\linewidth]{figs/baseline_best.png}
+\caption{Sample results from a baseline segmentation approach based on similariity
 clustering of SLIC image superpixel segmentation.}
 \figlab{baseline}
+\end{figure}
 
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{figs/markov_best.png}
+\caption{Sample results from our Markov random walk based segmentation approach.}
+\figlab{markov_best}
 \end{figure}
 
 \section{Evaluation}\seclab{eval}
 
 
 As a preprocessing step, we pre-segment each image into superpixels using the
-SLIC-Zero parameter-free superpixelization method \todo{cite}. We hypothesisize
-that this does not significantly degrade our results. 
+SLIC-Zero parameter-free superpixelization method \cite{achanta2010slic}. We
+hypothesisize that this does not significantly degrade our results. 
 
 The goal of this project is mostly to explore the space and point to future
 research possibilities. Although the results are compared with those of
