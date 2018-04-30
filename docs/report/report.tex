@@ -212,6 +212,7 @@ clustering of SLIC image superpixel segmentation.}
 
 \section{Evaluation}\seclab{eval}
 
+
 As a preprocessing step, we pre-segment each image into superpixels using the
 SLIC-Zero parameter-free superpixelization method \todo{cite}. We hypothesisize
 that this does not significantly degrade our results. 
@@ -237,6 +238,35 @@ explain this in detail here.}
 \paragraph{PASCAL VOC} \todo{describe} \cite{Everingham10}.
 
 \section{Results}\seclab{results}
+
+\begin{figure*}[t!]
+  \centering
+
+  \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=\linewidth]{figs/markov_horizon.png}
+    \caption{Markov random walk, walk horizon}
+  \end{subfigure}
+  \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=\linewidth]{figs/markov_thresh.png}
+    \caption{Markov random walk, merge threshold}
+  \end{subfigure}
+
+  \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=\linewidth]{figs/epidemic_run.png}
+    \caption{Epidemic, simulation runtime}
+  \end{subfigure}
+  \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=\linewidth]{figs/epidemic_thresh.png}
+    \caption{Epidemic, merge threshold}
+  \end{subfigure}
+
+  \caption{
+    Analysis of performance under different hyperparameters for each of our proposed methods. (a) and (b) show that threshold
+    is the most important parameter. \todo{bottom row should be for epidemic model}
+  }
+  \figlab{ab_only}
+
+\end{figure*}
 
 \begin{figure}
   \centering
