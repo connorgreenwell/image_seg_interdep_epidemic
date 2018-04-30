@@ -208,21 +208,25 @@ clustering of SLIC image superpixel segmentation.}
 
 \section{Evaluation}\seclab{eval}
 
+As a preprocessing step, we pre-segment each image into superpixels using the
+SLIC-Zero parameter-free superpixelization method \todo{cite}. We hypothesisize
+that this does not significantly degrade our results. 
+
 The goal of this project is mostly to explore the space and point to future
 research possibilities. Although the results are compared with those of
 existing algorithms, they are not expected to be competitive with the state of
-the art. To that end we evaluate our performance on a variety of classic
-image segmentation benchmark datasets, including PASCAL VOC and MS-COCO, as well
-as compare our results against existing state-of-the-art segmentation methods. 
+the art. To that end we evaluate our performance on a classic image segmentation
+benchmark dataset, PASCAL VOC, which contains $2,913$ full resolution images and
+per-pixel instance segmentations.
 
-\todo{describe metrics here, probably need to restate the formula from Hebert's paper}
+We evaluate our methods on the Adjusted Rand Score from
+\cite{unnikrishnan2005measure}.  
 
-A number of evaluation metrics have been explored for performance on the task of
-image segmentation. We have chosen the Adjusted Rand Score from
-\cite{unnikrishnan2005measure}  Some other metrics to consider are Mutual
-Information, FMI, and Homogeneity scores. These may be included in the final
-paper if they tell an interesting story but our primary focus is on
-evluating against Hebert's ARS score.
+We evaluate two different methods for simulating information propagation in our
+proposed interdependent graph. The first is based on random walks which we
+simulate with Markov chains. We experiment with different walk horizons. The
+second is based on an approximation of epidemic spread. \todo{Emory, please
+explain this in detail here.}
 
 \subsection{Datasets}\seclab{data}
 
