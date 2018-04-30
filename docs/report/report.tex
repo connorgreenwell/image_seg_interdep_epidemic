@@ -279,17 +279,24 @@ defined baseline.
 \begin{figure*}[t]
   \centering
 
-  \begin{subfigure}{0.49\linewidth}
+  \begin{subfigure}{0.4\linewidth}
     \includegraphics[width=\linewidth]{figs/only_alpha.png}
     \caption{Sample segmentation using only the alpha scores.}
   \end{subfigure}
-  \begin{subfigure}{0.49\linewidth}
+  \begin{subfigure}{0.4\linewidth}
     \includegraphics[width=\linewidth]{figs/only_beta.png}
     \caption{Sample segmentation using only the beta scores.}
   \end{subfigure}
 
   \caption{
-    \todo{foobar}
+    Each of our proposed similarity metrics provides enough information to
+    perform rudamentary segmentation. To demonstrate this we take a simple
+    thresholding approach, cutting edges below a given threshold, shown above
+    each image. 
+    We observe that in this setting, alpha scores seem useful for
+    differentiating between regions in the foreground, and beta scores seem
+    useful for regions in the background. Our intuition is that combining these
+    two metrics will yield superior segmentations.
   }
   \figlab{ab_only}
 
