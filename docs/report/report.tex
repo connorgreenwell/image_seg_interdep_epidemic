@@ -90,6 +90,27 @@ perform image segmentation.  \cite{newell2017associative,li2017fully,ren2017end}
 present a variety of neural network based approached to instance segmentation on
 natural images.
 
+\begin{figure*}[t]
+\centering
+
+\includegraphics[width=0.3\linewidth]{figs/input.png}
+\includegraphics[width=0.3\linewidth]{figs/alpha.png}
+\includegraphics[width=0.3\linewidth]{figs/beta.png}
+
+\caption{
+(left) A sample image from our dataset.
+(middle) The inverse square of the difference between every pair of pixels in
+the image. 
+(right) Transformation of the color space to the median centroid of the image's
+profile, projected onto the surface of a sphere in color space, points on the
+surface of which represent unique, continuous, colors. The cosine of the angular
+distance between each pair of pixels on the sphere.
+(middle), and (right) are used to determine epidemic spread probabilities
+between pixels in our approach.
+}
+\figlab{alpha_beta}
+\end{figure*}
+
 \section{Approach}\seclab{approach}
 
 First we encode an input image as a pair of identical graphs where each node is
@@ -113,27 +134,6 @@ which we combine with a naive segmentation merging algorithm which iteratively
 applies a logical OR to each successive pair of proposed segmentations. 
 
 \subsection{Image Network Extraction}
-
-\begin{figure*}
-\centering
-
-\includegraphics[width=0.3\linewidth]{figs/input.png}
-\includegraphics[width=0.3\linewidth]{figs/alpha.png}
-\includegraphics[width=0.3\linewidth]{figs/beta.png}
-
-\caption{
-(left) A sample image from our dataset.
-(middle) The inverse square of the difference between every pair of pixels in
-the image. 
-(right) Transformation of the color space to the median centroid of the image's
-profile, projected onto the surface of a sphere in color space, points on the
-surface of which represent unique, continuous, colors. The cosine of the angular
-distance between each pair of pixels on the sphere.
-(middle), and (right) are used to determine epidemic spread probabilities
-between pixels in our approach.
-}
-\figlab{alpha_beta}
-\end{figure*}
 
 As a preprocessing step we extract two meaningful metrics from the pixels of an
 input image and use them to define similarity scores between adjacent pixels.
@@ -167,20 +167,24 @@ images", which we visualize in \figref{alpha_beta}.
 
 \end{figure}
 
-\begin{figure}
+\begin{figure*}[t]
   \centering
 
-  \begin{subfigure}{\linewidth}
+  \begin{subfigure}{0.49\linewidth}
     \includegraphics[width=\linewidth]{figs/single_source.png}
     \caption{Probability distribution over superpixels.}
   \end{subfigure}
-  \begin{subfigure}{\linewidth}
+  \begin{subfigure}{0.49\linewidth}
     \includegraphics[width=\linewidth]{figs/many_sources.png}
     \caption{Binary masks for various source regions.}
   \end{subfigure}
-  \begin{subfigure}{\linewidth}
+  \begin{subfigure}{0.49\linewidth}
     \includegraphics[width=\linewidth]{figs/aggregate.png}
     \caption{Aggregate of many binary masks. \todo{This is REALLY bad. I must be doing something wrong\ldots}}
+  \end{subfigure}
+  \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=\linewidth]{figs/aggregate.png}
+    \caption{\todo{replace this with something else! maybe g.t. segmentation}}
   \end{subfigure}
 
   \caption{
@@ -188,7 +192,7 @@ images", which we visualize in \figref{alpha_beta}.
   }
   \figlab{process}
 
-\end{figure}
+\end{figure*}
 
 \subsection{Baseline}
 
@@ -247,14 +251,14 @@ defined baseline.
 
 \end{figure}
 
-\begin{figure}
+\begin{figure*}[t]
   \centering
 
-  \begin{subfigure}{\linewidth}
+  \begin{subfigure}{0.49\linewidth}
     \includegraphics[width=\linewidth]{figs/only_alpha.png}
     \caption{Sample segmentation using only the alpha scores.}
   \end{subfigure}
-  \begin{subfigure}{\linewidth}
+  \begin{subfigure}{0.49\linewidth}
     \includegraphics[width=\linewidth]{figs/only_beta.png}
     \caption{Sample segmentation using only the beta scores.}
   \end{subfigure}
@@ -264,7 +268,7 @@ defined baseline.
   }
   \figlab{ab_only}
 
-\end{figure}
+\end{figure*}
 
 \todo{This section should be a boat load of tables and plots. Hopefully we look good in some of them}
 
@@ -276,9 +280,20 @@ find the optimal settings for our task.
 
 \section{Conclusion}
 
-\todo{restate what we did in more detail than we do in the intro}
+In this document we presented a method for performing instance segmentation on photographs by modeling instance membership as
+an information spread or epidemic model in an interdependent graph. We introduced two simple similarity metrics which are used
+as the basis for tranmitting instance membership between neighboring pixels. Finally we compare our method to a rudamentary
+baseline.
 
-\todo{future work}
+\subsection{Future Work}
+
+Our method is easy to extend. Some possible directions for future work include the following:
+
+\begin{itemize}
+  \item Improving the method by which we combine candidate segmentations.
+  \item Incorporating additional similarity metrics, and additional layers to the interdependent graph.
+  \item Explore the effect of using other superpixel segmentation strategies.
+\end{itemize}
 
 \bibliographystyle{plain}
 \bibliography{refs} 
