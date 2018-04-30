@@ -35,8 +35,8 @@ In this document we propose formulating the problem of image segmentation as
 simulating the propagation of information/ownership through an interdependent
 network where the first layer is a lattice representation of an input image and
 the second layer is a (planar) overlay graph where each node has weighted edges
-to pixels in the lattice. We will design and evaluate a number of propagation
-models, primarily based on pixel/region similarity metrics. Finally we will
+to pixels in the lattice. We design and evaluate a number of propagation
+models, primarily based on pixel/region similarity metrics. Finally we 
 compare our method against classical and current state-of-the-art methods for
 image segmentation on a variety of segmentation benchmark datasets. 
 \end{abstract}
@@ -61,12 +61,12 @@ We propose a method based on the epidemic spread of information through an
 interdependent graph.
 
 We first create an interdependent network model of an image. The
-weights of edges between adjacent pixels in the lattice will represent
+weights of edges between adjacent pixels in the lattice represent
 their degree of similarity to each other. The weights of edges between
-nodes in the overlay graph will represent their overlap and estimated
+nodes in the overlay graph represent their overlap and estimated
 potential to belong to the same object. The weights of edges between the
-overlay and lattice will represent ownership of pixels by superpixels.
-We will then perform a simultaneous, competitive propagation of multiple
+overlay and lattice represent ownership of pixels by superpixels.
+We then perform a simultaneous, competitive propagation of multiple
 phenomena through this network using a variety of models, with the
 ultimate goal of developing a propagation model with property that,
 after propagation has completed, the regions of the lattice affected by
@@ -100,7 +100,7 @@ similarity to each other, which we describe in the next subsection. Since pixels
 are represented by nodes in both graphs, we connect their respective nodes with
 an interdependency link with a uniform weight.
 
-We will then perform a simultaneous, competitive propagation of multiple
+We then perform a simultaneous, competitive propagation of multiple
 phenomena through this network using a variety of models, with the ultimate goal
 of developing a propagation model with property that, after propagation has
 completed, the regions of the lattice affected by each phenomena correspond well
@@ -209,9 +209,9 @@ clustering of SLIC image superpixel segmentation.}
 \section{Evaluation}\seclab{eval}
 
 The goal of this project is mostly to explore the space and point to future
-research possibilities. Although the results will be compared with those of
+research possibilities. Although the results are compared with those of
 existing algorithms, they are not expected to be competitive with the state of
-the art. To that end we will evaluate our performance on a variety of classic
+the art. To that end we evaluate our performance on a variety of classic
 image segmentation benchmark datasets, including PASCAL VOC and MS-COCO, as well
 as compare our results against existing state-of-the-art segmentation methods. 
 
@@ -221,20 +221,12 @@ A number of evaluation metrics have been explored for performance on the task of
 image segmentation. We have chosen the Adjusted Rand Score from
 \cite{unnikrishnan2005measure}  Some other metrics to consider are Mutual
 Information, FMI, and Homogeneity scores. These may be included in the final
-paper if they tell an interesting story but our primary focus will be on
+paper if they tell an interesting story but our primary focus is on
 evluating against Hebert's ARS score.
 
 \subsection{Datasets}\seclab{data}
 
-\todo{we dont need all 4, trim down a bit probably}
-
 \paragraph{PASCAL VOC} \todo{describe} \cite{Everingham10}.
-
-\paragraph{Cityscapes Dataset} \todo{describe} \cite{cordts2016cityscapes}.
-
-\paragraph{KITTI} \todo{describe} \cite{geiger2012we}
-
-\paragraph{MS COCO} \todo{describe} \cite{lin2014microsoft}.
 
 \section{Results}\seclab{results}
 
