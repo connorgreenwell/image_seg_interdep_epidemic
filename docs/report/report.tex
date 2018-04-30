@@ -200,21 +200,6 @@ A naive baseline method has been developed for us to compare our actual method
 against. It is based on using DBSCAN \cite{ester1996density} to cluster and
 merge superpixels produced by SLIC \cite{achanta2010slic}.
 
-\begin{figure}
-\centering
-\includegraphics[width=\linewidth]{figs/baseline_best.png}
-\caption{Sample results from a baseline segmentation approach based on similariity
-clustering of SLIC image superpixel segmentation.}
-\figlab{baseline}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=\linewidth]{figs/markov_best.png}
-\caption{Sample results from our Markov random walk based segmentation approach.}
-\figlab{markov_best}
-\end{figure}
-
 \section{Evaluation}\seclab{eval}
 
 
@@ -257,34 +242,26 @@ pixel/region similarities.
 
 \section{Results}\seclab{results}
 
-\begin{figure*}[t!]
-  \centering
+\begin{figure}[t!]
+\centering
 
-  \begin{subfigure}{0.49\linewidth}
-    \includegraphics[width=\linewidth]{figs/markov_horizon.png}
-    \caption{Markov random walk, walk horizon}
-  \end{subfigure}
-  \begin{subfigure}{0.49\linewidth}
-    \includegraphics[width=\linewidth]{figs/markov_thresh.png}
-    \caption{Markov random walk, merge threshold}
+  \begin{subfigure}{\linewidth}
+    \includegraphics[width=\linewidth]{figs/baseline_best.png}
+    \caption{Baseline}
   \end{subfigure}
 
-  \begin{subfigure}{0.49\linewidth}
-    \includegraphics[width=\linewidth]{figs/epidemic_run.png}
-    \caption{Epidemic, simulation runtime}
-  \end{subfigure}
-  \begin{subfigure}{0.49\linewidth}
-    \includegraphics[width=\linewidth]{figs/epidemic_thresh.png}
-    \caption{Epidemic, merge threshold}
+  \begin{subfigure}{\linewidth}
+    \includegraphics[width=\linewidth]{figs/markov_best.png}
+    \caption{Markov random walk based}
   \end{subfigure}
 
-  \caption{
-    Analysis of performance under different hyperparameters for each of our proposed methods. (a) and (b) show that threshold
-    is the most important parameter. \todo{bottom row should be for epidemic model}
-  }
-  \figlab{ab_only}
+  \begin{subfigure}{\linewidth}
+    \includegraphics[width=\linewidth]{figs/markov_best.png}
+    \caption{\todo{Epidemic based}}
+  \end{subfigure}
 
-\end{figure*}
+\caption{Sample results from each of our proposed methods.}
+\end{figure}
 
 \begin{figure}
   \centering
@@ -325,6 +302,35 @@ Mechanisms for performing hyperparameter optimization have been developed and te
 necessary because our final method will likely have a number of tunable hyperparameters and it will be useful to automatically
 find the optimal settings for our task.
 }
+
+\begin{figure*}[t!]
+  \centering
+
+  \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=\linewidth]{figs/markov_horizon.png}
+    \caption{Markov random walk, walk horizon}
+  \end{subfigure}
+  \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=\linewidth]{figs/markov_thresh.png}
+    \caption{Markov random walk, merge threshold}
+  \end{subfigure}
+
+  \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=\linewidth]{figs/epidemic_run.png}
+    \caption{Epidemic, simulation runtime}
+  \end{subfigure}
+  \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=\linewidth]{figs/epidemic_thresh.png}
+    \caption{Epidemic, merge threshold}
+  \end{subfigure}
+
+  \caption{
+    Analysis of performance under different hyperparameters for each of our proposed methods. (a) and (b) show that threshold
+    is the most important parameter. \todo{bottom row should be for epidemic model}
+  }
+  \figlab{ab_only}
+
+\end{figure*}
 
 \section{Conclusion}
 
