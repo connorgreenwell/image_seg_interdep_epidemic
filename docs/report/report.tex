@@ -233,9 +233,22 @@ simulate with Markov chains. We experiment with different walk horizons. The
 second is based on an approximation of epidemic spread. \todo{Emory, please
 explain this in detail here.}
 
-\subsection{Datasets}\seclab{data}
+\subsection{Dataset}\seclab{data}
 
-\paragraph{PASCAL VOC} \todo{describe} \cite{Everingham10}.
+The dataset upon which we evaluate our method is the PASCAL Visual Object
+Classification (VOC) dataset \cite{Everingham10}. Over the years in which the
+VOC challenge was run, a couple different variations of the problem we
+presented, ranging from whole-image object classification to human pose
+estimation. In 2012 they introduced a subset of per-pixel instance segmentations
+for $2,913$ of the images in the dataset. In each segmentation, there is a
+background class, some number of instance classes, and a "don't care" region
+around each object instance. The instance segmentation task is distinct from
+object classification in that the goal is not to actually classify to which
+object category each pixel belongs to, but to separate the image into its
+constituent parts, similar to foreground/background segmentation. We believe
+that this task presents a unique challenge that can be addressed by our proposed
+method of propagating information through a interdependent graph defined by
+pixel/region similarities.
 
 \section{Results}\seclab{results}
 
