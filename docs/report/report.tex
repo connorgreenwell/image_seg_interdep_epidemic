@@ -116,6 +116,15 @@ between pixels in our approach.
 
 \section{Approach}\seclab{approach}
 
+\begin{figure}[t!]
+    \includegraphics[width=\linewidth]{figs/slic_zero.png}
+    \caption{A sample superpixelization. Superpixels are contiguous regions of
+    an image with similar attributes. Many methods exist for dividing an image
+    up into superpixels. For this paper, we used the one described in
+    \cite{achanta2010slic}. The boundaries of each superpixel is marked in
+    yellow above.}
+\end{figure}
+
 First we encode an input image as a pair of identical graphs where each node is
 represents a pixel, and edges represent adjacency between pixels in the image.
 We create an interdependent network model of an image. The weights of
@@ -169,35 +178,6 @@ images", which we visualize in \figref{alpha_beta}.
   \figlab{ab_graph}
 
 \end{figure}
-
-\begin{figure*}[t]
-  \centering
-
-  \begin{subfigure}{0.49\linewidth}
-    \includegraphics[width=\linewidth]{figs/single_source.png}
-    \caption{Probability distribution over superpixels.}
-  \end{subfigure}
-  \begin{subfigure}{0.49\linewidth}
-    \includegraphics[width=\linewidth]{figs/many_sources.png}
-    \caption{Binary masks for various source regions.}
-  \end{subfigure}
-  \begin{subfigure}{0.49\linewidth}
-    \includegraphics[width=\linewidth]{figs/aggregate.png}
-    \caption{Aggregate of many binary masks. \todo{This is REALLY bad. I must be doing something wrong\ldots}}
-  \end{subfigure}
-  \begin{subfigure}{0.49\linewidth}
-    \includegraphics[width=\linewidth]{figs/aggregate.png}
-    \caption{\todo{replace this with something else! maybe g.t. segmentation}}
-  \end{subfigure}
-
-  \caption{
-    Overview of our method: First, a \todo{blarg}
-  }
-  \figlab{process}
-
-\end{figure*}
-
-\todo{explain \figref{process}}
 
 \begin{figure*}[t]
   \centering
