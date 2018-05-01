@@ -194,6 +194,33 @@ images", which we visualize in \figref{alpha_beta}.
 
 \end{figure*}
 
+\todo{explain \figref{process}}
+
+\begin{figure*}[t]
+  \centering
+
+  \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=\linewidth]{figs/only_alpha.png}
+    \caption{Sample segmentation using only the alpha scores.}
+  \end{subfigure}
+  \begin{subfigure}{0.49\linewidth}
+    \includegraphics[width=\linewidth]{figs/only_beta.png}
+    \caption{Sample segmentation using only the beta scores.}
+  \end{subfigure}
+
+  \caption{
+    Each of our proposed similarity metrics provides enough information to
+    perform rudamentary segmentation. To demonstrate this we take a simple
+    thresholding approach, cutting edges below a given threshold, shown above
+    each image. 
+    We observe that in this setting, alpha scores seem useful for
+    differentiating between regions in the foreground, and beta scores seem
+    useful for regions in the background. Our intuition is that combining these
+    two metrics will yield superior segmentations.
+  }
+  \figlab{ab_only}
+\end{figure*}
+
 \subsection{Baseline}
 
 A naive baseline method has been developed for us to compare our actual method
@@ -261,46 +288,23 @@ pixel/region similarities.
   \end{subfigure}
 
 \caption{Sample results from each of our proposed methods.}
+\figlab{sample_results}
 \end{figure}
+
+In \figref{sample_results} we \ldots
 
 \begin{figure}
   \centering
-
   \includegraphics[width=\linewidth]{figs/bars.png}
-
-  \caption{Comparison of Adjusted Rand Score on 100 images from the training set. Having more area to the right of the graph
-indicates a higher proportion of high quality seqmentations. In this case, this indicates that our method is worse than our
-defined baseline.
+  \caption{Comparison of Adjusted Rand Score on 100 images from the training
+  set. Having more area to the right of the graph indicates a higher proportion
+  of high quality seqmentations. In this case, this indicates that our method is
+  worse than our defined baseline.
   }
   \figlab{bars}
-
 \end{figure}
 
-\begin{figure*}[t]
-  \centering
-
-  \begin{subfigure}{0.4\linewidth}
-    \includegraphics[width=\linewidth]{figs/only_alpha.png}
-    \caption{Sample segmentation using only the alpha scores.}
-  \end{subfigure}
-  \begin{subfigure}{0.4\linewidth}
-    \includegraphics[width=\linewidth]{figs/only_beta.png}
-    \caption{Sample segmentation using only the beta scores.}
-  \end{subfigure}
-
-  \caption{
-    Each of our proposed similarity metrics provides enough information to
-    perform rudamentary segmentation. To demonstrate this we take a simple
-    thresholding approach, cutting edges below a given threshold, shown above
-    each image. 
-    We observe that in this setting, alpha scores seem useful for
-    differentiating between regions in the foreground, and beta scores seem
-    useful for regions in the background. Our intuition is that combining these
-    two metrics will yield superior segmentations.
-  }
-  \figlab{ab_only}
-
-\end{figure*}
+In \figref{bars} we \ldots
 
 \todo{This section should be a boat load of tables and plots. Hopefully we look good in some of them}
 
@@ -335,9 +339,11 @@ find the optimal settings for our task.
     Analysis of performance under different hyperparameters for each of our proposed methods. (a) and (b) show that threshold
     is the most important parameter. \todo{bottom row should be for epidemic model}
   }
-  \figlab{ab_only}
+  \figlab{param_sweep}
 
 \end{figure*}
+
+In \figref{param_sweep} we \ldots
 
 \section{Conclusion}
 
