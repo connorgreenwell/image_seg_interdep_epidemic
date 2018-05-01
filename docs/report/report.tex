@@ -263,8 +263,9 @@ pixel/region similarities.
 We evaluate our methods on the Adjusted Rand Score (ARS) from
 \cite{unnikrishnan2005measure}. In \figref{bars} we visualize the distribution
 of ARS for each of our described methods (baseline, Markov-based, and
-Epidemic-based). In \tblref{ars} we \todo{blah blah}. Possible reasons for why
-\todo{were good or bad} are \todo{blah}.
+Epidemic-based). In \tblref{ars} we show the average ARS of each method on the
+PASCAL VOC dataset. Possible reasons for why \todo{were good or bad} are
+\todo{blah}.
 
 \begin{table}
     \centering
@@ -329,8 +330,10 @@ Possible reasons for what we show are \todo{blah blah}.
   \end{subfigure}
 
   \caption{
-    Analysis of performance under different hyperparameters for each of our proposed methods. (a) and (b) show that threshold
-    is the most important parameter. \todo{bottom row should be for epidemic model}
+    Analysis of performance under different hyperparameters for each of our
+    proposed methods. (a) and (b) show that threshold is the most important
+    parameter for the Markov-based method. (c) and (d) show that simulation run
+    time is the most important parameter for the Epidemic-based method.
   }
   \figlab{param_sweep}
 
@@ -342,7 +345,20 @@ show the results of a hyperparameter sweep over both the Markov-based and
 Epidemic-based methods. They share the a parameter controling the threshold at
 which each proposed segmentation is binarized at. Interestingly, each method
 demonstrates its own sensitiveity to the parameter. Specificly, the Epidemic
-model is relatively insensitive to it. We attribute this to \todo{}.
+model is relatively insensitive to it. We attribute this to a quirk of the
+Epidemic-based method, proposal segmentations that begin in areas with low
+neighboring similarity will not spread far. Due to the way that we combine
+proposed segmentations, this produces many smaller, less informative segments.
+Effectively we are amplifying noise in the signal. In \figref{epidemic_only} we
+demonstrate what happens when we use a simple heuristic to select the best
+proposals.
+
+\begin{figure}[t]
+    \includegraphics[width=\linewidth]{figs/epidemic_heuristic.png}
+    \caption{Binaried segmentations proposed by the epidemic-based method,
+    sorted by our simple heuristic.}
+    \figlab{epidemic_only}
+\end{figure}
 
 \section{Conclusion}
 
