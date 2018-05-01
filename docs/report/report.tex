@@ -80,15 +80,18 @@ In \secref{data} we describe the benchmark datasets against which we compare.
 Finally, in \secref{results} we describe our resulting performance and
 evaluation.
 
-\section{Related Work}\seclab{related}
+\subsection{Related Work}\seclab{related}
 
-\todo{endemic spread in interdpenedent networks}
+\cite{son2012percolation} establishes theory for talking about epidemic spread
+in interdependent graphs. \cite{pastor2015epidemic, pellis2015eight} deals more
+specifically with epidemic spread in complex networks.
+\cite{boccaletti2014structure, kivela2014multilayer} deals more broadly with the
+dynamics of interdependent graphs.
 
-\todo{image segmentation: classic, modern, and weird methods}
 \cite{pei2014saliency} use a Markov-Random-Field on precomputed super pixels to
-perform image segmentation.  \cite{newell2017associative,li2017fully,ren2017end}
-present a variety of neural network based approached to instance segmentation on
-natural images.
+perform image segmentation.  \cite{newell2017associative, li2017fully,
+ren2017end} present a variety of neural network based approached to instance
+segmentation on natural images.
 
 \begin{figure*}[t]
 \centering
@@ -290,7 +293,7 @@ Epidemic-based). In \tblref{ars} we \todo{blah blah}. Possible reasons for why
 
     \begin{tabular}{c|l}
         Method & Mean ARS \\ \hline
-        Baseline & ~ \\
+        Baseline & 0.1385439 \\
         Markov-based & ~ \\
         Epidemic-based & 0.0124122
     \end{tabular}
