@@ -241,9 +241,6 @@ the art. To that end we evaluate our performance on a classic image segmentation
 benchmark dataset, PASCAL VOC, which contains $2,913$ full resolution images and
 per-pixel instance segmentations.
 
-We evaluate our methods on the Adjusted Rand Score from
-\cite{unnikrishnan2005measure}.  
-
 We evaluate two different methods for simulating information propagation in our
 proposed interdependent graph. The first is based on random walks which we
 simulate with Markov chains. We experiment with different walk horizons. The
@@ -267,7 +264,37 @@ that this task presents a unique challenge that can be addressed by our proposed
 method of propagating information through a interdependent graph defined by
 pixel/region similarities.
 
-\section{Results}\seclab{results}
+\section{Results and Discussion}\seclab{results}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{figs/bars.png}
+  \caption{Comparison of Adjusted Rand Score on 100 images from the training
+  set. Having more area to the right of the graph indicates a higher proportion
+  of high quality seqmentations. In this case, this indicates that our method is
+  worse than our defined baseline.
+  }
+  \figlab{bars}
+\end{figure}
+
+We evaluate our methods on the Adjusted Rand Score (ARS) from
+\cite{unnikrishnan2005measure}. In \figref{bars} we visualize the distribution
+of ARS for each of our described methods (baseline, Markov-based, and
+Epidemic-based). In \tblref{ars} we \todo{blah blah}. Possible reasons for why
+\todo{were good or bad} are \todo{blah}.
+
+\begin{table}
+    \centering
+    \caption{\todo{caption}}
+    \tbllab{ars}
+
+    \begin{tabular}{c|l}
+        Method & Mean ARS \\ \hline
+        Baseline & ~ \\
+        Markov-based & ~ \\
+        Epidemic-based & 0.0124122
+    \end{tabular}
+\end{table}
 
 \begin{figure}[t!]
 \centering
@@ -283,7 +310,7 @@ pixel/region similarities.
   \end{subfigure}
 
   \begin{subfigure}{\linewidth}
-    \includegraphics[width=\linewidth]{figs/markov_best.png}
+    \includegraphics[width=\linewidth]{figs/epidemic_best.png}
     \caption{\todo{Epidemic based}}
   \end{subfigure}
 
@@ -291,28 +318,10 @@ pixel/region similarities.
 \figlab{sample_results}
 \end{figure}
 
-In \figref{sample_results} we \ldots
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{figs/bars.png}
-  \caption{Comparison of Adjusted Rand Score on 100 images from the training
-  set. Having more area to the right of the graph indicates a higher proportion
-  of high quality seqmentations. In this case, this indicates that our method is
-  worse than our defined baseline.
-  }
-  \figlab{bars}
-\end{figure}
-
-In \figref{bars} we \ldots
-
-\todo{This section should be a boat load of tables and plots. Hopefully we look good in some of them}
-
-\todo{
-Mechanisms for performing hyperparameter optimization have been developed and tested on the naive baseline. This will be
-necessary because our final method will likely have a number of tunable hyperparameters and it will be useful to automatically
-find the optimal settings for our task.
-}
+Qualitatively, segmentations produced by the Markov-based and Epidemic-based
+methods leave much to be desired. \figref{sample_results} shows the images and
+resulting segmentations for the five highest scoring images under each method.
+Possible reasons for what we show are \todo{blah blah}.
 
 \begin{figure*}[t!]
   \centering
@@ -343,7 +352,13 @@ find the optimal settings for our task.
 
 \end{figure*}
 
-In \figref{param_sweep} we \ldots
+Each method described is subject to a number of hyperparameters which ultimately 
+dictate the methods performance with regards to ARS. In \figref{param_sweep} we
+show the results of a hyperparameter sweep over both the Markov-based and
+Epidemic-based methods. They share the a parameter controling the threshold at
+which each proposed segmentation is binarized at. Interestingly, each method
+demonstrates its own sensitiveity to the parameter. Specificly, the Epidemic
+model is relatively insensitive to it. We attribute this to \todo{}.
 
 \section{Conclusion}
 
