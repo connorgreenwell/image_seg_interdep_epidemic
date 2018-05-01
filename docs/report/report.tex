@@ -167,7 +167,7 @@ each pair of pixels on the sphere as a 4D structure like above.
 The result of each approach is a four-dimensional array or "image of
 images", which we visualize in \figref{alpha_beta}.
 
-\begin{figure}
+\begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{figs/ab_graphs.png}
 
@@ -249,7 +249,7 @@ pixel/region similarities.
 
 \section{Results and Discussion}\seclab{results}
 
-\begin{figure}
+\begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{figs/bars.png}
   \caption{Comparison of Adjusted Rand Score on 100 images from the training
@@ -268,7 +268,8 @@ Epidemic-based). In \tblref{ars} we \todo{blah blah}. Possible reasons for why
 
 \begin{table}
     \centering
-    \caption{\todo{caption}}
+    \caption{Mean Adjusted Rand Score for each method covered in this paper.
+    Higher values indicicate higher quality segmentations.}
     \tbllab{ars}
 
     \begin{tabular}{c|l}
