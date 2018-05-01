@@ -51,12 +51,12 @@ is, only \emph{where} it is. Typically this is formulated as assigning a
 unique label to each pixel in an image, where the label indicates belonging to a
 particular object. For example, an object containing two cats would have three
 labels: one for each cat, and a background label. Current state of the art uses
-convolutional neural networks to segment an image into its consituent object
+convolutional neural networks to segment an image into its constituent object
 parts.
 
 Interdependent graphs are a tool commonly used for analyzing cyber-physical
 networks and social networks. They are represented by a pair of distinct graphs
-joined with some number of interdependency links between nodes in each graph.
+joined with some number of interdependence links between nodes in each graph.
 We propose a method based on the epidemic spread of information through an
 interdependent graph.
 
@@ -72,7 +72,7 @@ ultimate goal of developing a propagation model with property that,
 after propagation has completed, the regions of the lattice affected by
 each phenomena correspond well to the segments of the image.
 
-The following paper is layed out as follows: In \secref{related} we survey the
+The following paper is laid out as follows: In \secref{related} we survey the
 current state of the art in image segmentation, as well as methods related to
 ours. In \secref{approach} we describe our method in detail. In \secref{eval} we
 describe the metrics by which we judge our methods and those we compare against.
@@ -88,7 +88,7 @@ specifically with epidemic spread in complex networks.
 \cite{boccaletti2014structure, kivela2014multilayer} deals more broadly with the
 dynamics of interdependent graphs.
 
-\cite{pei2014saliency} use a Markov-Random-Field on precomputed super pixels to
+\cite{pei2014saliency} use a Markov-Random-Field on pre-computed super pixels to
 perform image segmentation.  \cite{newell2017associative, li2017fully,
 ren2017end} present a variety of neural network based approached to instance
 segmentation on natural images.
@@ -131,17 +131,17 @@ We create an interdependent network model of an image. The weights of
 edges between adjacent pixels in each graph represents their degree of
 similarity to each other, which we describe in the next subsection. Since pixels
 are represented by nodes in both graphs, we connect their respective nodes with
-an interdependency link with a uniform weight.
+an interdependence link with a uniform weight.
 
 We then perform a simultaneous, competitive propagation of multiple
 phenomena through this network using a variety of models, with the ultimate goal
 of developing a propagation model with property that, after propagation has
 completed, the regions of the lattice affected by each phenomena correspond well
 to the segments of the image. This produces a proposal segmentation for each
-image pixel, which is defined as a per-pixel likelyhood of belonging to the same
+image pixel, which is defined as a per-pixel likelihood of belonging to the same
 object as the source pixel.
 
-Finally, each proposed segmentation is thresholded to produce a binary mask
+Finally, each proposed segmentation is threshold-ed to produce a binary mask
 which we combine with a naive segmentation merging algorithm which iteratively
 applies a logical OR to each successive pair of proposed segmentations. 
 
@@ -193,7 +193,7 @@ images", which we visualize in \figref{alpha_beta}.
 
   \caption{
     Each of our proposed similarity metrics provides enough information to
-    perform rudamentary segmentation. To demonstrate this we take a simple
+    perform rudimentary segmentation. To demonstrate this we take a simple
     thresholding approach, cutting edges below a given threshold, shown above
     each image. 
     We observe that in this setting, alpha scores seem useful for
@@ -215,7 +215,7 @@ merge superpixels produced by SLIC \cite{achanta2010slic}.
 
 As a preprocessing step, we pre-segment each image into superpixels using the
 SLIC-Zero parameter-free superpixelization method \cite{achanta2010slic}. We
-hypothesisize that this does not significantly degrade our results. 
+hypothesize that this does not significantly degrade our results. 
 
 The goal of this project is mostly to explore the space and point to future
 research possibilities. Although the results are compared with those of
@@ -254,7 +254,7 @@ pixel/region similarities.
   \includegraphics[width=\linewidth]{figs/bars.png}
   \caption{Comparison of Adjusted Rand Score on 100 images from the training
   set. Having more area to the right of the graph indicates a higher proportion
-  of high quality seqmentations. In this case, this indicates that our method is
+  of high quality segmentations. In this case, this indicates that our method is
   worse than our defined baseline.
   }
   \figlab{bars}
@@ -271,7 +271,7 @@ time.
 \begin{table}
     \centering
     \caption{Mean Adjusted Rand Score for each method covered in this paper.
-    Higher values indicicate higher quality segmentations.}
+    Higher values indicate higher quality segmentations.}
     \tbllab{ars}
 
     \begin{tabular}{c|l}
@@ -309,7 +309,7 @@ methods leave much to be desired. \figref{sample_results} shows the images and
 resulting segmentations for the five highest scoring images under each method.
 The Markov-based segmentations are noisy and typically centered over points of
 interest in an image. This noise can be attributed to the fact that the
-likelyhood of arriving in a particular node during a random walk is not uniform
+likelihood of arriving in a particular node during a random walk is not uniform
 when starting in other nodes in a single object. 
 
 \begin{figure*}[t!]
@@ -326,7 +326,7 @@ when starting in other nodes in a single object.
 
   \begin{subfigure}{0.49\linewidth}
     \includegraphics[width=\linewidth]{figs/epidemic_run.png}
-    \caption{Epidemic, simulation runtime}
+    \caption{Epidemic, simulation run-time}
   \end{subfigure}
   \begin{subfigure}{0.49\linewidth}
     \includegraphics[width=\linewidth]{figs/epidemic_thresh.png}
@@ -334,7 +334,7 @@ when starting in other nodes in a single object.
   \end{subfigure}
 
   \caption{
-    Analysis of performance under different hyperparameters for each of our
+    Analysis of performance under different hyper-parameters for each of our
     proposed methods. (a) and (b) show that threshold is the most important
     parameter for the Markov-based method. (c) and (d) show that simulation run
     time is the most important parameter for the Epidemic-based method.
@@ -343,12 +343,12 @@ when starting in other nodes in a single object.
 
 \end{figure*}
 
-Each method described is subject to a number of hyperparameters which ultimately 
+Each method described is subject to a number of hyper-parameters which ultimately 
 dictate the methods performance with regards to ARS. In \figref{param_sweep} we
-show the results of a hyperparameter sweep over both the Markov-based and
-Epidemic-based methods. They share the a parameter controling the threshold at
+show the results of a hyper-parameter sweep over both the Markov-based and
+Epidemic-based methods. They share the a parameter controlling the threshold at
 which each proposed segmentation is binarized at. Interestingly, each method
-demonstrates its own sensitiveity to the parameter. Specificly, the Epidemic
+demonstrates its own sensitivity to the parameter. Specifically, the Epidemic
 model is relatively insensitive to it. We attribute this to a quirk of the
 Epidemic-based method, proposal segmentations that begin in areas with low
 neighboring similarity will not spread far. Due to the way that we combine
@@ -359,7 +359,7 @@ proposals.
 
 \begin{figure}[t]
     \includegraphics[width=\linewidth]{figs/epidemic_heuristic.png}
-    \caption{Binaried segmentations proposed by the epidemic-based method,
+    \caption{Binarized segmentations proposed by the epidemic-based method,
     sorted by our simple heuristic.}
     \figlab{epidemic_only}
 \end{figure}
@@ -369,8 +369,8 @@ proposals.
 In this document we presented a method for performing instance segmentation on
 photographs by modeling instance membership as an information spread or epidemic
 model in an interdependent graph. We introduced two simple similarity metrics
-which are used as the basis for tranmitting instance membership between
-neighboring pixels. Finally we compare our method to a rudamentary baseline.
+which are used as the basis for transmitting instance membership between
+neighboring pixels. Finally we compare our method to a rudimentary baseline.
 
 \subsection{Future Work}
 
