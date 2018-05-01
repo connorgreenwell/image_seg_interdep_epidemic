@@ -4,6 +4,7 @@
 \usepackage[margin=1in,bottom=1.5in]{geometry}
 
 \usepackage{graphicx}
+\usepackage{amsmath}
 \usepackage{subcaption}
 
 % Comment out second line to disable.
@@ -31,54 +32,14 @@
 \maketitle
 
 \begin{abstract}
-In this document we propose formulating the problem of image segmentation as
-simulating the propagation of information/ownership through an interdependent
-network where the first layer is a lattice representation of an input image and
-the second layer is a (planar) overlay graph where each node has weighted edges
-to pixels in the lattice. We design and evaluate a number of propagation
-models, primarily based on pixel/region similarity metrics. Finally we 
-compare our method against classical and current state-of-the-art methods for
-image segmentation on a variety of segmentation benchmark datasets. 
+We propose formulating the problem of image segmentation as a form of phenomena spread on an interdependent network of superpixels. We define two independent metrics for superpixel similarity and use them to generate two unique, but connected topologies describing the image. We then model image segmentation as the spread of the phenomenon of similarity, using two different propagation models. We then extensively optimize these models against the PASCAL VOC training dataset. Finally we compare our method against a clustering-based baseline algorithm operating on the same superpixelizations.
 \end{abstract}
 
 \section{Introduction}
 
-Instance segmentation is an important and popular topic in computer vision
-\cite{newell2017associative, li2017fully, ren2017end}.   It is important to note
-that instance segmentation is a distinct but related task to object detection.
-Notably, instance segmentation is not concerned with \emph{what} and object
-is, only \emph{where} it is. Typically this is formulated as assigning a
-unique label to each pixel in an image, where the label indicates belonging to a
-particular object. For example, an object containing two cats would have three
-labels: one for each cat, and a background label. Current state of the art uses
-convolutional neural networks to segment an image into its consituent object
-parts.
+Image segmentation is an important and popular topic in computer vision \cite{newell2017associative, li2017fully, ren2017end}. It is important to note that image segmentation is a distinct but related task to object detection. Notably, image segmentation is not concerned with \emph{what} the objects in an image might be, only \emph{where} they are. Typically this is formulated as assigning a unique label to each pixel in an image, where the label indicates belonging to a particular object. For example, an image containing two cats would be expected to have three labels: one for each cat, and a background label. The current state of the art uses convolutional neural networks.
 
-Interdependent graphs are a tool commonly used for analyzing cyber-physical
-networks and social networks. They are represented by a pair of distinct graphs
-joined with some number of interdependency links between nodes in each graph.
-We propose a method based on the epidemic spread of information through an
-interdependent graph.
-
-We first create an interdependent network model of an image. The
-weights of edges between adjacent pixels in the lattice represent
-their degree of similarity to each other. The weights of edges between
-nodes in the overlay graph represent their overlap and estimated
-potential to belong to the same object. The weights of edges between the
-overlay and lattice represent ownership of pixels by superpixels.
-We then perform a simultaneous, competitive propagation of multiple
-phenomena through this network using a variety of models, with the
-ultimate goal of developing a propagation model with property that,
-after propagation has completed, the regions of the lattice affected by
-each phenomena correspond well to the segments of the image.
-
-The following paper is layed out as follows: In \secref{related} we survey the
-current state of the art in image segmentation, as well as methods related to
-ours. In \secref{approach} we describe our method in detail. In \secref{eval} we
-describe the metrics by which we judge our methods and those we compare against.
-In \secref{data} we describe the benchmark datasets against which we compare.
-Finally, in \secref{results} we describe our resulting performance and
-evaluation.
+Interdependent network theory is the branch of network theory devoted to studying the behavior and properties of networks composed of two or more sub-networks, each with different topology or complex interactions. Interdependent network theory is commonly used for analyzing the propagation of phenomena like power failure or social influence through complex networks such as cyber-physical systems and social networks. We propose an interdependent network model of image topology, and explore the use of propagation models to segment the image. 
 
 \section{Related Work}\seclab{related}
 
@@ -87,85 +48,88 @@ evaluation.
 \todo{image segmentation: classic, modern, and weird methods}
 \cite{pei2014saliency} use a Markov-Random-Field on precomputed super pixels to
 perform image segmentation.  \cite{newell2017associative,li2017fully,ren2017end}
-present a variety of neural network based approached to instance segmentation on
+present a variety of neural network based approached to image segmentation on
 natural images.
-
-\begin{figure*}[t]
-\centering
-
-\includegraphics[width=0.3\linewidth]{figs/input.png}
-\includegraphics[width=0.3\linewidth]{figs/alpha.png}
-\includegraphics[width=0.3\linewidth]{figs/beta.png}
-
-\caption{
-(left) A sample image from our dataset.
-(middle) The inverse square of the difference between every pair of pixels in
-the image. 
-(right) Transformation of the color space to the median centroid of the image's
-profile, projected onto the surface of a sphere in color space, points on the
-surface of which represent unique, continuous, colors. The cosine of the angular
-distance between each pair of pixels on the sphere.
-(middle), and (right) are used to determine epidemic spread probabilities
-between pixels in our approach.
-}
-\figlab{alpha_beta}
-\end{figure*}
 
 \section{Approach}\seclab{approach}
 
-First we encode an input image as a pair of identical graphs where each node is
-represents a pixel, and edges represent adjacency between pixels in the image.
-We create an interdependent network model of an image. The weights of
-edges between adjacent pixels in each graph represents their degree of
-similarity to each other, which we describe in the next subsection. Since pixels
-are represented by nodes in both graphs, we connect their respective nodes with
-an interdependency link with a uniform weight.
-
-We then perform a simultaneous, competitive propagation of multiple
-phenomena through this network using a variety of models, with the ultimate goal
-of developing a propagation model with property that, after propagation has
-completed, the regions of the lattice affected by each phenomena correspond well
-to the segments of the image. This produces a proposal segmentation for each
-image pixel, which is defined as a per-pixel likelyhood of belonging to the same
-object as the source pixel.
-
-Finally, each proposed segmentation is thresholded to produce a binary mask
-which we combine with a naive segmentation merging algorithm which iteratively
-applies a logical OR to each successive pair of proposed segmentations. 
-
 \subsection{Image Network Extraction}
 
-As a preprocessing step we extract two meaningful metrics from the pixels of an
-input image and use them to define similarity scores between adjacent pixels.
-\todo{maybe emory can ellaborate on this here}
-The first is extracting value information from the image.
-The approach takes the inverse square of the difference between every pair of
-pixels in the image. 
+To construct our interdependent network model of image topology, first we apply an established superpixelization algorithm (specifically SLIC0) to the image, clustering nearby pixels together into contiguous regions.
 
-The other method is extracting the hue data. This complements the value method
-nicely.  First, we transform the color space to the median centroid of the
-image's profile. We then compute the norm of each pixel in the image,
-post-transform.  Next, we take the dot product of every pair of pixels, and
-finally normalize against each via the norms recorded before.  Intuitively, it's
-transforming the (0,0,0)->(1,1,1) cube of RGB color space to a hollow sphere
-centered at the origin, points on the surface of which represent unique,
-continuous, colors. We then output the cosine of the angular distance between
-each pair of pixels on the sphere as a 4D structure like above.
-
-The result of each approach is a four-dimensional array or "image of
-images", which we visualize in \figref{alpha_beta}.
-
-\begin{figure}
+\begin{figure}[h]
   \centering
-  \includegraphics[width=\linewidth]{figs/ab_graphs.png}
-
+  \includegraphics[width=0.8\linewidth]{figs/superpixels.png}
   \caption{
-    The original overlay graphs on a sample image. In each, lighter colors represent higher scores; best viewed in color.
-    (left) alpha scores, based on color intensity. (right) beta scores, based on hue difference.
+    The SLIC0 superpixelization of a sample image from the PASCAL VOC dataset
+  }
+\end{figure}
+
+Because superpixelization groups similar pixels together, we can approximate the topology of the underlying image using the superpixel network, greatly simplifying future operations.
+
+\subsubsection{Alpha superpixel similarity metric}
+
+We then define two independent metrics for the similarity of a pair of superpixels. They are ultimately used to generate the topologies of the respective layers of the interdependent network model, so their mutual independence ensures the dissimilar topology of the network layers.
+
+The first metric (the alpha metric) measures the difference in average value (or "brightness") between a pair of superpixels. Initially, each pixel in the image is represented as an RGB color vector $x$. The alpha metric first computes the euclidean norm of each pixel's vector, and normalizes the result to the range $[0, 1]$. The result is a measure of the pixel's brightness which is independent of its hue or saturation:
+\[
+    \alpha_p(\underbar{x}) = \frac{\underbar{x} \cdot \underbar{x}}{\sqrt{3}} = \frac{1}{\sqrt{3}}(\underbar{x}_r^2+\underbar{x}_g^2+\underbar{x}_b^2)
+\]
+
+For a pair of superpixels $X$ and $Y$, we then define the alpha metric to be the normalized reciprocal of the absolute value of the difference between the average values of the pixels in each:
+\[
+    \alpha(X,\: Y) = \frac{2}{1 + \lvert \bar{X}_\alpha - \bar{Y}_\alpha \rvert} - 1
+\]
+\[
+    \bar{X}_\alpha = \sum\limits_{\underbar{x}\: \in\: X} \alpha_p(\underbar{x}),\ \bar{Y}_\alpha = \sum\limits_{\underbar{y}\: \in\: Y} \alpha_p(\underbar{y})
+\]
+
+The result is a real value in the range $[0, 1]$, with lower values representing less similar superpixels.
+
+\subsubsection{Beta superpixel similarity metric}
+
+The second (or "beta") superpixel similarity metric instead rejects value information entirely, and measures the similarity in saturation and hue between two superpixels. First, it subtracts the vector $[0.5, 0.5, 0.5]$ from the each pixel's color vector, and then divides it by it's own magnitude:
+\[
+    \beta_p(\underbar{x}) = \frac{\underbar{x} - [0.5, 0.5, 0.5]}{\lvert \underbar{x} - [0.5, 0.5, 0.5] \rvert}
+\]
+
+This effectively transforms the color space from the cube between $[0, 0, 0] -> [1, 1, 1]$, to the hollow sphere with radius $1$ and centered at the origin. Points on the surface of the sphere represent unique saturation/value combinations. We then average and renormalize these vectors for each superpixel, and take the dot product between them. Because their magnitudes are unit, the dot product effectively measures the cosine of the average angle between the two superpixels in saturation/value space. We finally normalize to the range $[0, 1]$:
+\[
+    \beta(X,\: Y) = \frac{1}{2}[1 + \bar{X}_\beta \cdot \bar{Y}_\beta]
+\]
+\[
+    \bar{X}_\beta = \sum\limits_{\underbar{x}\: \in\: X} \beta_p(\underbar{x}),\ \bar{Y}_\beta = \sum\limits_{\underbar{y}\: \in\: Y} \beta_p(\underbar{y})
+\]
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.45\linewidth]{figs/cloud.png}
+  \includegraphics[width=0.45\linewidth]{figs/sphere.png}
+  \caption{
+    The color space before (left) and after (right) transformation to the sphere
+  }
+\end{figure}
+
+\subsubsection{Constructing the network}
+
+Next, for each layer we construct the adjacency network over the set of superpixels, and assign weights to its edges based on the above metrics. The result is an $\alpha$ layer and a $\beta$ layer, which share the same structure, but have independent weightings.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.49\linewidth]{figs/alpha_graph.png}
+  \includegraphics[width=0.49\linewidth]{figs/beta_graph.png}
+  \caption{
+    The two layers ($\alpha$ left, $\beta$ right) of our network model for a sample image
   }
   \figlab{ab_graph}
-
 \end{figure}
+
+The two layers are then connected one-to-one to form a single network model.
+
+\subsection{Propagation}
+
+Finally, we are able to perform propagation. We used two models: a markov random-walk model, and a weighted SI-model.
+
 
 \begin{figure*}[t]
   \centering
@@ -227,36 +191,16 @@ A naive baseline method has been developed for us to compare our actual method
 against. It is based on using DBSCAN \cite{ester1996density} to cluster and
 merge superpixels produced by SLIC \cite{achanta2010slic}.
 
-\section{Evaluation}\seclab{eval}
-
-
-As a preprocessing step, we pre-segment each image into superpixels using the
-SLIC-Zero parameter-free superpixelization method \cite{achanta2010slic}. We
-hypothesisize that this does not significantly degrade our results. 
-
-The goal of this project is mostly to explore the space and point to future
-research possibilities. Although the results are compared with those of
-existing algorithms, they are not expected to be competitive with the state of
-the art. To that end we evaluate our performance on a classic image segmentation
-benchmark dataset, PASCAL VOC, which contains $2,913$ full resolution images and
-per-pixel instance segmentations.
-
-We evaluate two different methods for simulating information propagation in our
-proposed interdependent graph. The first is based on random walks which we
-simulate with Markov chains. We experiment with different walk horizons. The
-second is based on an approximation of epidemic spread. \todo{Emory, please
-explain this in detail here.}
-
 \subsection{Dataset}\seclab{data}
 
 The dataset upon which we evaluate our method is the PASCAL Visual Object
 Classification (VOC) dataset \cite{Everingham10}. Over the years in which the
 VOC challenge was run, a couple different variations of the problem we
 presented, ranging from whole-image object classification to human pose
-estimation. In 2012 they introduced a subset of per-pixel instance segmentations
+estimation. In 2012 they introduced a subset of per-pixel image segmentations
 for $2,913$ of the images in the dataset. In each segmentation, there is a
 background class, some number of instance classes, and a "don't care" region
-around each object instance. The instance segmentation task is distinct from
+around each object instance. The image segmentation task is distinct from
 object classification in that the goal is not to actually classify to which
 object category each pixel belongs to, but to separate the image into its
 constituent parts, similar to foreground/background segmentation. We believe
@@ -362,7 +306,7 @@ model is relatively insensitive to it. We attribute this to \todo{}.
 
 \section{Conclusion}
 
-In this document we presented a method for performing instance segmentation on photographs by modeling instance membership as
+In this document we presented a method for performing image segmentation on photographs by modeling instance membership as
 an information spread or epidemic model in an interdependent graph. We introduced two simple similarity metrics which are used
 as the basis for tranmitting instance membership between neighboring pixels. Finally we compare our method to a rudamentary
 baseline.
