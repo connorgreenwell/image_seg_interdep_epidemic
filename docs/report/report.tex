@@ -264,8 +264,9 @@ We evaluate our methods on the Adjusted Rand Score (ARS) from
 \cite{unnikrishnan2005measure}. In \figref{bars} we visualize the distribution
 of ARS for each of our described methods (baseline, Markov-based, and
 Epidemic-based). In \tblref{ars} we show the average ARS of each method on the
-PASCAL VOC dataset. Possible reasons for why \todo{were good or bad} are
-\todo{blah}.
+PASCAL VOC dataset. Both of the methods proposed in this paper perform worse
+than the baseline; quantitatively, qualitatively, and in terms of computation
+time.
 
 \begin{table}
     \centering
@@ -276,7 +277,7 @@ PASCAL VOC dataset. Possible reasons for why \todo{were good or bad} are
     \begin{tabular}{c|l}
         Method & Mean ARS \\ \hline
         Baseline & 0.1385439 \\
-        Markov-based & ~ \\
+        Markov-based & 0.0536634 \\
         Epidemic-based & 0.0124122
     \end{tabular}
 \end{table}
@@ -296,7 +297,7 @@ PASCAL VOC dataset. Possible reasons for why \todo{were good or bad} are
 
   \begin{subfigure}{\linewidth}
     \includegraphics[width=\linewidth]{figs/epidemic_best.png}
-    \caption{\todo{Epidemic based}}
+    \caption{Epidemic based}
   \end{subfigure}
 
 \caption{Sample results from each of our proposed methods.}
@@ -306,7 +307,10 @@ PASCAL VOC dataset. Possible reasons for why \todo{were good or bad} are
 Qualitatively, segmentations produced by the Markov-based and Epidemic-based
 methods leave much to be desired. \figref{sample_results} shows the images and
 resulting segmentations for the five highest scoring images under each method.
-Possible reasons for what we show are \todo{blah blah}.
+The Markov-based segmentations are noisy and typically centered over points of
+interest in an image. This noise can be attributed to the fact that the
+likelyhood of arriving in a particular node during a random walk is not uniform
+when starting in other nodes in a single object. 
 
 \begin{figure*}[t!]
   \centering
@@ -362,14 +366,16 @@ proposals.
 
 \section{Conclusion}
 
-In this document we presented a method for performing instance segmentation on photographs by modeling instance membership as
-an information spread or epidemic model in an interdependent graph. We introduced two simple similarity metrics which are used
-as the basis for tranmitting instance membership between neighboring pixels. Finally we compare our method to a rudamentary
-baseline.
+In this document we presented a method for performing instance segmentation on
+photographs by modeling instance membership as an information spread or epidemic
+model in an interdependent graph. We introduced two simple similarity metrics
+which are used as the basis for tranmitting instance membership between
+neighboring pixels. Finally we compare our method to a rudamentary baseline.
 
 \subsection{Future Work}
 
-Our method is easy to extend. Some possible directions for future work include the following:
+These methods did not perform better than the proposed baseline. Some possible
+directions for future work include the following:
 
 \begin{itemize}
   \item Improving the method by which we combine candidate segmentations.
