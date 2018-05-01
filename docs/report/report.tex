@@ -41,29 +41,24 @@ Image segmentation is an important and popular topic in computer vision \cite{ne
 
 Interdependent network theory is the branch of network theory devoted to studying the behavior and properties of networks composed of two or more sub-networks, each with different topology or complex interactions. Interdependent network theory is commonly used for analyzing the propagation of phenomena like power failure or social influence through complex networks such as cyber-physical systems and social networks. We propose an interdependent network model of image topology, and explore the use of propagation models to segment the image. 
 
-\section{Related Work}\seclab{related}
+\subsection{Related Work}\seclab{related}
 
-\todo{endemic spread in interdpenedent networks}
+\cite{son2012percolation} establishes theory for talking about epidemic spread
+in interdependent graphs. \cite{pastor2015epidemic, pellis2015eight} deals more
+specifically with epidemic spread in complex networks.
+\cite{boccaletti2014structure, kivela2014multilayer} deals more broadly with the
+dynamics of interdependent graphs.
 
-\todo{image segmentation: classic, modern, and weird methods}
 \cite{pei2014saliency} use a Markov-Random-Field on precomputed super pixels to
-perform image segmentation.  \cite{newell2017associative,li2017fully,ren2017end}
-present a variety of neural network based approached to image segmentation on
-natural images.
+perform image segmentation.  \cite{newell2017associative, li2017fully,
+ren2017end} present a variety of neural network based approached to instance
+segmentation on natural images.
 
 \section{Approach}\seclab{approach}
 
 \subsection{Image Network Extraction}
 
 To construct our interdependent network model of image topology, first we apply an established superpixelization algorithm (specifically SLIC0) to the image, clustering nearby pixels together into contiguous regions.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.8\linewidth]{figs/superpixels.png}
-  \caption{
-    The SLIC0 superpixelization of a sample image from the PASCAL VOC dataset
-  }
-\end{figure}
 
 Because superpixelization groups similar pixels together, we can approximate the topology of the underlying image using the superpixel network, greatly simplifying future operations.
 
@@ -135,35 +130,6 @@ Finally, we are able to perform propagation. We used two models: a markov random
   \centering
 
   \begin{subfigure}{0.49\linewidth}
-    \includegraphics[width=\linewidth]{figs/single_source.png}
-    \caption{Probability distribution over superpixels.}
-  \end{subfigure}
-  \begin{subfigure}{0.49\linewidth}
-    \includegraphics[width=\linewidth]{figs/many_sources.png}
-    \caption{Binary masks for various source regions.}
-  \end{subfigure}
-  \begin{subfigure}{0.49\linewidth}
-    \includegraphics[width=\linewidth]{figs/aggregate.png}
-    \caption{Aggregate of many binary masks. \todo{This is REALLY bad. I must be doing something wrong\ldots}}
-  \end{subfigure}
-  \begin{subfigure}{0.49\linewidth}
-    \includegraphics[width=\linewidth]{figs/aggregate.png}
-    \caption{\todo{replace this with something else! maybe g.t. segmentation}}
-  \end{subfigure}
-
-  \caption{
-    Overview of our method: First, a \todo{blarg}
-  }
-  \figlab{process}
-
-\end{figure*}
-
-\todo{explain \figref{process}}
-
-\begin{figure*}[t]
-  \centering
-
-  \begin{subfigure}{0.49\linewidth}
     \includegraphics[width=\linewidth]{figs/only_alpha.png}
     \caption{Sample segmentation using only the alpha scores.}
   \end{subfigure}
@@ -210,7 +176,7 @@ pixel/region similarities.
 
 \section{Results and Discussion}\seclab{results}
 
-\begin{figure}
+\begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{figs/bars.png}
   \caption{Comparison of Adjusted Rand Score on 100 images from the training
@@ -224,18 +190,21 @@ pixel/region similarities.
 We evaluate our methods on the Adjusted Rand Score (ARS) from
 \cite{unnikrishnan2005measure}. In \figref{bars} we visualize the distribution
 of ARS for each of our described methods (baseline, Markov-based, and
-Epidemic-based). In \tblref{ars} we \todo{blah blah}. Possible reasons for why
-\todo{were good or bad} are \todo{blah}.
+Epidemic-based). In \tblref{ars} we show the average ARS of each method on the
+PASCAL VOC dataset. Both of the methods proposed in this paper perform worse
+than the baseline; quantitatively, qualitatively, and in terms of computation
+time.
 
 \begin{table}
     \centering
-    \caption{\todo{caption}}
+    \caption{Mean Adjusted Rand Score for each method covered in this paper.
+    Higher values indicicate higher quality segmentations.}
     \tbllab{ars}
 
     \begin{tabular}{c|l}
         Method & Mean ARS \\ \hline
-        Baseline & ~ \\
-        Markov-based & ~ \\
+        Baseline & 0.1385439 \\
+        Markov-based & 0.0536634 \\
         Epidemic-based & 0.0124122
     \end{tabular}
 \end{table}
@@ -255,7 +224,7 @@ Epidemic-based). In \tblref{ars} we \todo{blah blah}. Possible reasons for why
 
   \begin{subfigure}{\linewidth}
     \includegraphics[width=\linewidth]{figs/epidemic_best.png}
-    \caption{\todo{Epidemic based}}
+    \caption{Epidemic based}
   \end{subfigure}
 
 \caption{Sample results from each of our proposed methods.}
@@ -265,7 +234,10 @@ Epidemic-based). In \tblref{ars} we \todo{blah blah}. Possible reasons for why
 Qualitatively, segmentations produced by the Markov-based and Epidemic-based
 methods leave much to be desired. \figref{sample_results} shows the images and
 resulting segmentations for the five highest scoring images under each method.
-Possible reasons for what we show are \todo{blah blah}.
+The Markov-based segmentations are noisy and typically centered over points of
+interest in an image. This noise can be attributed to the fact that the
+likelyhood of arriving in a particular node during a random walk is not uniform
+when starting in other nodes in a single object. 
 
 \begin{figure*}[t!]
   \centering
@@ -289,8 +261,10 @@ Possible reasons for what we show are \todo{blah blah}.
   \end{subfigure}
 
   \caption{
-    Analysis of performance under different hyperparameters for each of our proposed methods. (a) and (b) show that threshold
-    is the most important parameter. \todo{bottom row should be for epidemic model}
+    Analysis of performance under different hyperparameters for each of our
+    proposed methods. (a) and (b) show that threshold is the most important
+    parameter for the Markov-based method. (c) and (d) show that simulation run
+    time is the most important parameter for the Epidemic-based method.
   }
   \figlab{param_sweep}
 
@@ -302,18 +276,33 @@ show the results of a hyperparameter sweep over both the Markov-based and
 Epidemic-based methods. They share the a parameter controling the threshold at
 which each proposed segmentation is binarized at. Interestingly, each method
 demonstrates its own sensitiveity to the parameter. Specificly, the Epidemic
-model is relatively insensitive to it. We attribute this to \todo{}.
+model is relatively insensitive to it. We attribute this to a quirk of the
+Epidemic-based method, proposal segmentations that begin in areas with low
+neighboring similarity will not spread far. Due to the way that we combine
+proposed segmentations, this produces many smaller, less informative segments.
+Effectively we are amplifying noise in the signal. In \figref{epidemic_only} we
+demonstrate what happens when we use a simple heuristic to select the best
+proposals.
+
+\begin{figure}[t]
+    \includegraphics[width=\linewidth]{figs/epidemic_heuristic.png}
+    \caption{Binaried segmentations proposed by the epidemic-based method,
+    sorted by our simple heuristic.}
+    \figlab{epidemic_only}
+\end{figure}
 
 \section{Conclusion}
 
-In this document we presented a method for performing image segmentation on photographs by modeling instance membership as
-an information spread or epidemic model in an interdependent graph. We introduced two simple similarity metrics which are used
-as the basis for tranmitting instance membership between neighboring pixels. Finally we compare our method to a rudamentary
-baseline.
+In this document we presented a method for performing instance segmentation on
+photographs by modeling instance membership as an information spread or epidemic
+model in an interdependent graph. We introduced two simple similarity metrics
+which are used as the basis for tranmitting instance membership between
+neighboring pixels. Finally we compare our method to a rudamentary baseline.
 
 \subsection{Future Work}
 
-Our method is easy to extend. Some possible directions for future work include the following:
+These methods did not perform better than the proposed baseline. Some possible
+directions for future work include the following:
 
 \begin{itemize}
   \item Improving the method by which we combine candidate segmentations.
